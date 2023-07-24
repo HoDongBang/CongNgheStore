@@ -1,0 +1,300 @@
+﻿/*carousel*/
+.product-detail {
+    margin-top: 40px;
+}
+
+.product-detail h5 {
+    font-weight: 700;
+}
+.product-detail .product-contains {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.product-detail .product-image {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 320px;
+}
+/*prev next*/
+.product-detail .product-image .carousel-control-prev div, .product-detail .product-image .carousel .carousel-control-next div {
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(114, 113, 113, 0.30);
+}
+
+.product-detail .product-image .carousel .carousel-control-prev:hover div, .product-detail .product-image .carousel .carousel-control-next:hover div {
+    background-color: rgb(114, 113, 113);
+}
+/*thumbnavigator*/
+.product-detail .product-image .carousel .thumbnavigator {
+    margin-top: 10px;
+    width: 100%;
+    background: #fff;
+    padding: 10px 0;
+    position: relative;
+    height: 65px;
+}
+
+.product-detail .product-image .carousel .thumbnavigator a {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    height: 100%;
+    width: 30px;
+    top: 0;
+    background: #ffffff;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .prev {
+    left: 0;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .next {
+    right: 0;
+}
+
+.product-detail .product-image .carousel .thumbnavigator a div {
+    position: absolute;
+    height: calc(100% - 20px);
+    width: 20px;
+    top: 10px;
+    background: #009a826b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-detail .product-image .carousel .thumbnavigator a:hover div {
+    color: #ffffff;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .prev div {
+    border-radius: 0 5px 5px 0;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .next div {
+    border-radius: 5px 0 0 5px;
+    right: 0;
+}
+
+/*carousel-indicators*/
+.product-detail .product-image .carousel .thumbnavigator .carousel-indicators {
+    position: absolute;
+    width: 255px;
+    height: 100%;
+    top: 0;
+    left: -18px;
+    padding: 5px 0;
+    z-index: 2;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .carousel-indicators li {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    height: 53px;
+    width: 50px;
+    padding: 5px;
+    border: #eee 1px solid;
+    margin: 0;
+    cursor: pointer;
+    transform-style: flat;
+    overflow: hidden;
+    top: -0.5px;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .carousel-indicators li img {
+    display: block;
+    width: 100%;
+}
+
+.product-detail .product-image .carousel .thumbnavigator .carousel-indicators .active {
+    border: #0bbf56 1px solid;
+    left: 100px;
+}
+
+/* product-center*/
+.product-detail .product-center {
+    width: 400px;
+    position: relative;
+}
+
+.product-detail .product-center h4 {
+    color: #fd475a;
+    font-weight: 700;
+}
+
+.product-detail .product-center .option {
+    margin-top: 10px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.product-detail .product-center .option .option-item .form-check-inline {
+    margin: 0 10px 10px 0;
+}
+
+.product-detail .product-center .option .option-item .title {
+    display: block;
+    font-weight: 600;
+}
+.product-detail .product-center .option .option-item .contains {
+    width: 100%;
+}   
+
+.product-detail .product-center .option .option-item .form-check-label {
+    display: inline-block;
+    width: 120px;
+    background: #fff;
+    padding: 5px;
+    border: #eee 1px solid;
+    border-radius: 8px;
+}
+
+.product-detail .product-center .option .option-item .form-check-label:hover {
+    border: #ff6801 1px solid;
+}
+
+.product-detail .product-center .option .option-item .form-check-input:checked ~ .form-check-label {
+    border: #00483d 1px solid;
+}
+
+.product-detail .product-center .option .option-item .form-check-label span {
+    display: block;
+    font-size: 14px;
+}
+
+.product-detail .product-center .option .option-item .form-check-label .name {
+    margin-left: 25px;
+}
+
+.product-detail .product-center .option .option-item .form-check-label .price {
+    margin-left: 5px;
+    color: #fd475a;
+    font-weight: 600;
+}
+
+.product-detail .product-center .option .option-item .form-check-input {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.product-detail .product-center .action {
+    position: absolute;
+    bottom: 10px;
+}
+
+.product-detail .product-center .action button {
+    width: 170px;
+    margin-right: 10px;
+    height: 50px;
+    color: #fff;
+    box-shadow: none;
+}
+
+.product-detail .product-center .action a {
+    color: #fff;
+    text-decoration: none;
+}
+
+    .product-detail .product-center .action .btn-purchase {
+        background: transparent linear-gradient(180deg,#00917a 0%,#00483d 100%) 0% 0% no-repeat padding-box;
+    }
+
+    .product-detail .product-center .action .btn-purchase:hover {
+        background: transparent linear-gradient(180deg,#00483d 0%,#00917a 100%) 0% 0% no-repeat padding-box;
+    }
+
+    .product-detail .product-center .action .btn-cart {
+        background: transparent linear-gradient(180deg,#ff990e 0%,#ff6801 100%) 0% 0% no-repeat padding-box;
+    }
+
+        .product-detail .product-center .action .btn-cart:hover {
+            background: transparent linear-gradient(180deg,#ff6801 0%,#ff990e 100%) 0% 0% no-repeat padding-box;
+        }
+
+
+
+.product-detail .product-specs {
+    width: 400px;
+    background: #fff;
+    padding: 10px 0 0 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.product-detail .product-specs h5 {
+    text-align: center;
+}
+
+.product-detail .product-specs .contains {
+    list-style: none;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.product-detail .product-specs .contains li {
+    list-style: none;
+    padding: 5px;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.product-detail .product-specs .action {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.product-detail .product-specs button {
+    position: absolute;
+    bottom: 10px;
+    background: #fdfdfe 0% 0% no-repeat padding-box;
+    box-shadow: 0 3px 6px #00000029;
+    font-weight: 600;
+}
+
+.product-detail .product-specs button i {
+    color: #00483d;
+}
+
+
+/*modal*/
+.modal .modal-dialog {
+    max-width: 600px;
+}
+
+.modal table {
+    width: 100%;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+.modal table thead {
+    text-align: center;
+}
+
+.modal table thead h6 {
+    margin-bottom: 0;
+}
+
+.modal table thead tr {
+    background: #00917a;
+    color: #fff;
+}
+
+.modal table td:nth-child(1) {
+    width: 150px;
+}
+
+.modal table td, .modal table th {
+    padding: 5px;
+}
+
+.modal .modal-footer {
+    height: 50px;
+}

@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta class="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/bootstrap-icons-1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/css/User/Layout.css">
+    <!--home-->
+    <link rel="stylesheet" type="text/css" href="~/css/User/Home.css">
+    <link rel="stylesheet" type="text/css" href="~/css/User/Item.css">
+
+    <!--filter-->
+    <link rel="stylesheet" type="text/css" href="~/css/User/Filter.css">
+
+    <!--detail-->
+    <link rel="stylesheet" type="text/css" href="~/css/User/Detail.css">
+
+    <!--check-->
+    <link rel="stylesheet" type="text/css" href="~/css/User/Check.css">
+
+     <!--order-->
+    <link rel="stylesheet" type="text/css" href="~/css/User/Order.css">
+
+    <title>@ViewBag.Title - Công nghệ Store</title>
+    <link rel="shortcut icon" href="~/img/logo.png">
+</head>
+<body>
+    
+    <div class="contains">
+        <div class="message">
+            <span id="message">
+            
+            </span>
+        </div>
+        <div class="header"> 
+            <div class="login">
+                
+            </div>
+            <div class="banner">
+                <div class="logo">
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="~/img/logo.png">
+                        <div>
+                            <span>Công nghệ </span>
+                            <span>Store</span>
+                        </div>
+                    </a>                  
+                </div>
+                <div class="search">
+                    <form onsubmit="return false">
+                        <input type="search" placeholder="Hôm nay bạn cần gì?" id="input-search">
+                        <button class="btn" id="btn-search">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form> 
+                    <ul>
+                        
+                    </ul>              
+                </div>
+                <div class="order">
+                    <div class="check-order">
+                        <a href="/Order/Check">
+                            <i class="bi bi-truck"></i>
+                            <span>Kiểm tra đơn hàng</span>
+                        </a>
+                    </div>
+                    <div class="check-cart">
+                        <a href="/Order/Index">
+                            <i class="cart bi bi-cart"></i>
+                            <label>
+                                <i class="bi bi-caret-left-fill"></i>
+                                <span id="cart-total"></span>
+                            </label>    
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu">                            
+               <ul>
+                    <li id="dien-thoai-di-dong">
+                        <a href="/dien-thoai">
+                            <i class="bi bi-phone"></i>
+                            <span>ĐIỆN THOẠI</span>
+                        </a>
+                    </li>
+                    <li id="laptop">
+                        <a href="laptop">
+                            <i class="bi bi-laptop"></i>
+                            <span>LAPTOP</span>
+                        </a>
+                    </li>
+                    <li id="dong-ho">
+                        <a href="/dong-ho">
+                            <i class="bi bi-smartwatch"></i>
+                            <span>ĐỒNG HỒ</span>
+                        </a>
+                    </li>
+                    <li id="smart-tv">
+                        <a href="/smart-tv">
+                            <i class="bi bi-tv"></i>
+                            <span>SMART TV</span>
+                        </a>
+                    </li>
+                    <li id="smart-home">
+                        <a href="/smart-home">
+                            <i class="bi bi-house"></i>
+                            <span>SMART HOME</span>
+                        </a>
+                    </li>
+                    <li id="tablet">
+                        <a href="tablet">
+                            <i class="bi bi-tablet"></i>
+                            <span>TABLET</span>
+                        </a>
+                    </li>
+                    <li id="phu-kien">
+                        <a href="/phu-kien">
+                            <i class="bi bi-usb-plug"></i>
+                            <span>PHỤ KIỆN</span>
+                        </a>
+                    </li>
+                    <li id="the-sim">
+                        <a href="the-sim">
+                            <i class="bi bi-sim"></i>
+                            <span>THẺ SIM</span>
+                        </a>
+                    </li>
+                    <li id="am-thanh">
+                        <a href="am-thanh">
+                            <i class="bi bi-headphones"></i>
+                            <span>ÂM THANH</span>
+                        </a>
+                    </li>
+                    <li id="do-choi-cn">
+                        <a href="/do-choi-cn">
+                            <i class="bi bi-controller"></i>
+                            <span>ĐỒ CHƠI CN</span>
+                        </a>
+                    </li>
+                </ul>
+                
+            </div>
+            
+        </div>
+        <div class="context">
+            @RenderBody()
+        </div>
+        <div class="footer">
+            <div>
+                <p>© 2020. CÔNG TY CỔ PHẦN XÂY DỰNG VÀ ĐẦU TƯ THƯƠNG MẠI CÔNG NGHỆ. MST: 0106713191. (Đăng ký lần đầu: Ngày 15 tháng 12 năm 2014, Đăng ký thay đổi ngày 24/11/2022)</p>
+                <p>GP số 426/GP-TTĐT do sở TTTT Hà Nội cấp ngày 22/01/2021</p>
+                <p>Địa chỉ: Số 89 Đường Tam Trinh, Phường Mai Động, Quận Hoàng Mai, Thành Phố Hà Nội, Việt Nam. Điện thoại: 1900.2091. Chịu trách nhiệm nội dung: Hoàng Ngọc Chiến.</p>
+                <p>Website được lấy ý tưởng dựa trên https://hoanghamobile.com/ với mục đích học tập</p>
+            </div>
+            <div class="back-to-top">
+                <button type="button" class="btn" id="back-to-top" href=""><i class="bi bi-caret-up-square-fill"></i></button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!--layout-->
+    <script src="~/js/User/Layout.js"></script>
+    
+</body>
+</html>

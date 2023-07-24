@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Kiểm tra đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="render-check-order">
+    <div class="action">
+        <h4 class="col d-flex justify-content-center">Kiểm tra đơn hàng của bạn</h4>
+        <form onsubmit="return false">
+            <div class="form-group">
+                <input  type="text" id="text-check" class="form-control" placeholder="Test: af18e5bf-bc53-4339-8a56-dc514a9e0146"/>
+                <span for="text-check" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button id="sub-check" class="btn btn-success">Tra cứu</button>
+            </div>
+        </form>
+    </div>
+    <div class="value">
+        
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var urlApi = 'https://localhost:44311/api/';
+
+        var orderSucceed = window.sessionStorage.getItem('order-succeed');
+        if (orderSucceed != null) {
+            var urlApiOrder = urlApi + 'Order/GetOrderById/' + orderSucceed;
+            sendRequest(urlApiOrder, null, 'get', true);
+        }
+
+
+        
+        $('#sub-check').click(function(){
+            var urlApiOrder = urlApi + 'Order/GetOrderById/' + ($('#text-check').val());
+            sendRequest(urlApiOrder, null, 'get', true); 
+        });
+         
+        function sendRequest(url, data, method, async) {
+            $.ajax({
+                url: url,
+                async: async,
+                data: data,
+                error: function(response) {
+                    $('#text-check ~ span').html('Đơn hàng không tồn tại');
+                },
+                success: function(response) {
+                    $('#text-check ~ span').html('');
+
+                    var order = response.data;
+                    var total = 0;
+
+                    //order
+                    $('.render-check-order .value').html('');
+                    $('.render-check-order .value').append(
+                        '<table class="table-order" >'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Mã hóa đơn: </td>'+
+                                '<td >'+ order.Id +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;" >Sdt người nhận: </td>'+
+                                '<td>'+ order.PhoneNumber +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Tên người nhận: </td>'+
+                                '<td>'+ order.Name +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Địa chỉ: </td>'+
+                                '<td>'+ order.Address +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Ghi chú khách hàng: </td>'+
+                                '<td>'+ order.CustomerNotes +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Ghi chú cửa hàng: </td>'+
+                                '<td>'+ order.StoreNotes +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Ngày: </td>'+
+                                '<td>'+ order.Date +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td style="width: 200px; vertical-align: top;">Trạng thái: </td>'+
+                                '<td>'+ order.Status +'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td colspan="2">'+
+                                    '<table class="table-detail table-hover">'+
+                                        '<thead>'+
+                                            '<tr>'+
+                                                '<th style="width: 100px;"></th>'+
+                                                '<th style="width: 240px;">Tên sản phẩm</th>'+
+                                                '<th style="width: 120px;">Ram/Rom</th>'+
+                                                '<th style="width: 120px;">Màu sắc</th>'+
+                                                '<th style="width: 80px;">Số lượng</th>'+
+                                                '<th style="width: 120px;">Giá</th>'+
+                                            '</tr>'+
+                                        '</thead>'+
+                                        '<tbody>'+
+                                        '</tbody>'+
+                                    '</table>'+
+                                '</td>'+
+                            '</tr>'+
+                            '<tr style="height: 50px; font-weight: 700; font-size: 20px;">'+
+                                '<td style="text-align: end;" colspan="2">Tổng: <span class="total"></span></td>'+
+                            '</tr>'+
+                        '</table>'
+                    );
+
+                    let formatPrice = new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                    });
+                    new Intl.NumberFormat('en-US').format(price)
+
+                    //table-detail
+                    for (var key in order.Details) {
+                        var detail = order.Details[key];
+                        var url = `/${detail.Product.Category.UrlHandle}/${detail.Product.Brand.UrlHandle}/${detail.Product.Id}`;
+                        var urlImg = `${response.Url}${detail.Product.Category.Name}/${detail.Product.Brand.Name}/${detail.Product.Name}/${detail.Color.Img}`;
+                        var name = detail.Product.Name;
+                        var ramRom = detail.MemoryAndStorage.Ram + '/' + detail.MemoryAndStorage.Rom;
+                        var color = detail.Color.Name;
+                        var quantity = detail.Quantity;
+                        var price = (detail.Product.SellingPrice + detail.MemoryAndStorage.Price + detail.Color.Price) * detail.Quantity;
+
+                        total += price;
+
+                        price = formatPrice.format(price);
+
+                        $('.table-detail tbody').append(
+                            
+                            '<tr>'+
+                            
+                                '<td style="width: 100px;"><img  src="'+ urlImg +'"></td>'+
+                                '<td style="width: 240px;"><a href="'+ url +'">'+ name +'</a></td>'+
+                                '<td style="width: 120px;">'+ ramRom  +'</td>'+
+                                '<td style="width: 120px;">'+ color +'</td>'+
+                                '<td style="width: 80px;">'+ quantity +'</td>'+
+                                '<td style="width: 120px;">'+ price +'</td>'+
+                                
+                            '</tr>'
+                            
+                        );
+                    }
+                    total = formatPrice.format(total);
+                    $('.total').html(total);
+                },
+                type: method,
+                headers: {'Content-Type': 'application/json'},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        }
+    });
+</script>

@@ -1,0 +1,440 @@
+﻿* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI';
+    font-size: 13px;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    min-width: 1200px;
+}
+
+.message #message {
+    display: inline-block;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 600;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    z-index: 2000;
+    display: none;
+}
+
+.contains {
+    width: 1200px;
+    margin: 0 auto 0 auto;
+}
+
+.header {
+    width: 1200px;
+}
+
+.header .login {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: #004940;
+}
+
+.header .login > div {
+    display: flex;
+    justify-content: end;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header .login div a {
+    display: inline-block;
+    font-size: 15px;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.header .login div a:hover {
+    color: #05c2a6;
+}
+
+.header .login .account {
+    width: 100px;
+}
+
+.header .login .account .sub-login {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    z-index: 1001;
+    width: 100px;
+    box-shadow: 0 4px 6px #ccc;
+    position: absolute;
+    top: 30px;
+    display: none;
+}
+
+.header .login .account .sub-login button {
+    width: 100px;
+    background: #fff;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+.header .login .account .sub-login button:hover {
+    color: #ff6801;
+}
+.header .login .account:hover > a {
+    color: #ff6801;
+}
+
+.header .login .account:hover .sub-login {
+    display: block;
+}
+
+.header .banner {
+    margin-top: 20px;
+    width: 1200px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .banner .logo {
+}
+
+.header .banner .logo a {
+    text-decoration: none;
+}
+
+.header .banner .logo img {
+    width: 30px;
+    height: 30px;
+}
+
+.header .banner .logo a div {
+    float: right;
+}
+
+.header .banner .logo span {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.header .banner .logo a div > span {
+    color: #004940;
+}
+
+.header .banner .logo a div > span + span {
+    color: #009c85;
+}
+
+.header .banner .search {
+    width: 600px;
+    position: relative;
+}
+
+.header .banner .search input {
+    width: 600px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px #ccc;
+    outline: none;
+    padding-left: 20px;
+}
+
+.header .banner .search button {
+    box-shadow: 0 4px 6px #ccc;
+    position: absolute;
+    right: 4px;
+    top: -5px;
+    background: #004940;
+    border: none;
+    outline: none;
+    border-radius: 17px;
+    width: 40px;
+    height: 40px;
+    outline: none;
+    font-size: 17px;
+    color: #fff;
+}
+
+.header .banner .search button:focus {
+    top: 0px;
+}
+.header .banner .search ul {
+    width: 100%;
+    position: absolute;
+    z-index: 1001;
+    top: 50px;
+    box-shadow: 0 4px 6px #00000029;
+    border-radius: 6px;
+    display: none;
+}
+
+.header .banner .search ul li {
+    background: #fff;
+    width: 100%;
+    cursor: pointer;
+    list-style: none;
+}
+
+.header .banner .search ul li:hover {
+    background: #f4f4f4;
+}
+
+.header .banner .search ul li:first-child {
+    border-radius: 6px 6px 0 0;
+}
+
+.header .banner .search ul li:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+.header .banner .search ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.header .banner .search ul li .search-item {
+    margin: 0 auto;
+    width: 95%;
+    border-bottom: 1px #f4f4f4 solid;
+    padding: 10px;
+    display: flex;
+    justify-content: start;
+}
+
+.header .banner .search ul li:last-child .search-item {
+    border-bottom: none;
+}
+
+.header .banner .search ul li img {
+    display: block;
+    height: 50px;
+    width: 50px;
+}
+
+.header .banner .search ul li .inf {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.header .banner .search ul li .inf .name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.header .banner .search ul li .inf .price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fd475a;
+}
+
+
+.header .banner .order {
+    color: #fff;
+    display: flex;
+    justify-content: end;
+}
+
+.header .banner .order a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+}
+
+.header .banner .order .check-order a {
+    width: 140px;
+    height: 45px;
+    background: #004940;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px #ccc;
+    margin-right: 30px;
+}
+
+.header .banner .order .check-order a:hover {
+    background: #009c85;
+}
+
+.header .banner .order .check-order i {
+    float: left;
+    padding-left: 15px;
+    display: block;
+    font-size: 25px;
+    line-height: 45px;
+}
+
+.header .banner .order .check-order span {
+    width: 80px;
+    display: block;
+    text-align: left;
+    float: left;
+    padding-left: 15px;
+    margin-top: 3px;
+}
+
+.header .banner .order .check-cart a {
+    display: block;
+    width: 70px;
+    height: 40px;
+}
+
+.header .banner .order .check-cart .cart {
+    font-size: 35px;
+    line-height: 40px;
+    color: #004940;
+}
+
+.header .banner .order .check-cart .cart:hover {
+    color: #009c85;
+}
+
+.header .banner .order .check-cart label {
+    display: block;
+    float: right;
+    margin-top: 10px;
+}
+
+.header .banner .order .check-cart label i {
+    color: #ff6801;
+}
+
+.header .banner .order .check-cart label #cart-total {
+    font-size: 17px;
+    background: #ff6801;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    line-height: 25px;
+    margin-left: -10px;
+}
+
+.header .menu {
+    z-index: 1000;
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    background: #004940;
+    margin-top: 20px;
+    padding-top: 8px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px #ccc;
+}
+
+.header .menu ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.header .menu ul > li {
+}
+
+.header .menu > ul > li > a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    width: 65px;
+    text-align: center;
+    position: static;
+}
+
+.header .menu ul a i {
+    font-size: 20px;
+}
+
+.header .menu ul a span {
+    display: block;
+    text-transform: uppercase;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.header .menu .sub-menu {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+}
+
+.header .menu .sub-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px #ccc; 
+}
+
+.header .menu .sub-menu ul li {
+}
+
+.header .menu .sub-menu ul a {
+    text-decoration: none;
+    display: block;
+    color: black;
+    padding: 2px;
+}
+
+.header .menu > ul > li:hover .sub-menu {
+    display: block;
+}
+
+.header .menu .sub-menu ul a:hover {
+    color: #009c85;
+}
+/*
+.header .menu > ul > li:hover ul{
+    display: block;
+}
+*/
+
+
+/*footer */
+.footer {
+    background: #00483d;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 9pt;
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.footer p {
+    margin: 0 0 5px 0;
+}
+
+.footer p:nth-child(2) {
+    font-weight: 600;
+}
+.footer #back-to-top {
+    display: none;
+}
+
+.footer .back-to-top button i {
+    font-size: 40px;
+    display: inline-block;
+    position: fixed;
+    color: #212e7a60;
+    right: 20px;
+    bottom: 20px;
+}
+
+.footer .back-to-top button i:hover {
+    color: #212e7a9c;
+}

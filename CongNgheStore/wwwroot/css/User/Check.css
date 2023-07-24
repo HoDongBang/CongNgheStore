@@ -1,0 +1,70 @@
+﻿.render-check-order {
+    margin-top: 40px;
+    width: 1200px;
+}
+
+.render-check-order .action {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.render-check-order .action form {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.render-check-order .action input {
+    width: 100%;
+}
+
+.render-check-order .action input, .render-check-order .action button {
+    box-shadow: none;
+}
+
+.render-check-order .value .table-order {
+    background: #fff;
+    width: 820px;
+    margin: 0 auto;
+    border: 1px solid black;
+    font-size: 15px;
+    display: block;
+    padding: 10px;
+}
+
+.render-check-order td {
+    padding-left: 10px;
+}
+
+.render-check-order .table-detail td {
+    padding-left: 10px;
+}
+
+.render-check-order .table-detail {
+    width: 780px;
+    margin: 0 auto;
+    background: #fff;
+    font-size: 15px;
+}
+
+    .render-check-order .table-detail thead {
+        text-align: center;
+    }
+
+    .render-check-order .table-detail tr td:nth-child(1) {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .render-check-order .table-detail td, .render-check-order .table-detail th {
+        border: 1px solid gray;
+    }
+
+    .render-check-order .table-detail img {
+        width: 90%;
+        height: 90%;
+    }
+
+    .render-check-order .table-detail a, .render-check-order .table-detai a:hover {
+        color: black;
+    }

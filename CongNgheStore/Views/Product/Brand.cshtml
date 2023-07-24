@@ -1,0 +1,254 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="render-product">
+    <div class="filter">
+        <div class="title-filter">
+            <div class="title">Lọc danh sách:</div>
+        </div>
+        <div class="price facet">
+            <div class="title">Giá: 
+                <span style="font-weight: 600;" class="value"></span>
+                <i class="bi bi-chevron-down"></i>
+                <a href="" class="close-filter"><i class="bi bi-x-circle"></i></a>
+            </div>
+            <div class="sub-facet">
+                <ul>
+                    <li>
+                        <a href="" class="T20t">Trên 20 triệu</a>
+                    </li>
+                    <li>
+                        <a href="" class="15t-20t">15 đến 20 triệu</a>
+                    </li>
+                    <li>
+                        <a href="" class="10t-15t">10 đến 15 triệu</a>
+                    </li>
+                    <li>
+                        <a href="" class="5t-10t">5 đến 10 triệu</a>
+                    </li>
+                    <li>
+                        <a href="" class="D5t">Dưới 5 triệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sort facet">
+            <div class="title">Sắp xếp: 
+                <span style="font-weight: 600;" class="value"></span>
+                <i class="bi bi-chevron-down"></i>
+                <a href="" class="close-filter"><i class="bi bi-x-circle"></i></a>
+            </div>
+            <div class="sub-facet">
+                <ul>
+                    <li>
+                        <a href="" class="m-c">Sản phẩm mới - cũ</a>
+                    </li>
+                    <li>
+                        <a href="" class="c-m">Sản phẩm cũ - mới</a>
+                    </li>
+                    <li>
+                        <a href="" class="c-t">Từ cao đến thấp</a>
+                    </li>
+                    <li>
+                        <a href="" class="t-c">Từ thấp đến cao</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="list-item">
+        </div>      
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        //filter
+        var url = window.location.href;
+        var queryString = window.location.search;
+
+        var urlParams = new URLSearchParams(queryString);
+        var filters = urlParams.get('filters');
+        try{
+            filters = JSON.parse(filters);
+        }
+        catch{};
+        var price = null;
+        var sort = null;
+            
+        if(filters != null){
+            //Price
+            if(filters.Price != undefined){
+                //get value
+                price = filters.Price;
+                //close
+                    $('.filter .price .title .close-filter').attr('href', SetHref('', filters.Sort, url));
+                    $('.filter .price .title .close-filter').css('display', 'inline-block');
+                //set title
+                switch(filters.Price){
+                    case 'T20t': $('.filter .price .title .value').html('Trên 20 triệu'); break;
+                    case '15t-20t': $('.filter .price .title .value').html('15 đến 20 triệu'); break;
+                    case '10t-15t': $('.filter .price .title .value').html('10 đến 15 triệu'); break;
+                    case '5t-10t': $('.filter .price .title .value').html('5 đến 10 triệu'); break;
+                    case 'D5t': $('.filter .price .title .value').html('Dưới 5 triệu'); break;
+                    default: {
+                            $('.filter .price .title .value').html(''); 
+                            //close
+                            $('.filter .price .title .close-filter').attr('href', SetHref('', '', url));
+                            $('.filter .price .title .close-filter').css('display', 'none');
+                            break;
+                        }
+                }
+                //close
+                $('.filter .price .title .close-filter').attr('href', SetHref('', filters.Sort, url));
+                $('.filter .price .title .close-filter')
+            }
+
+            //Sort
+            if(filters.Sort != undefined){
+                //get value
+                sort = filters.Sort;
+                //close
+                    $('.filter .sort .title .close-filter').attr('href', SetHref('', filters.Price, url));
+                    $('.filter .sort .title .close-filter').css('display', 'inline-block');
+                //set title
+                switch(filters.Sort){
+                    case 'm-c': $('.filter .sort .title .value').html('Sản phẩm mới - cũ'); break;
+                    case 'c-m': $('.filter .sort .title .value').html('Sản phẩm cũ - mới'); break;
+                    case 'c-t': $('.filter .sort .title .value').html('Từ cao đến thấp'); break;
+                    case 't-c': $('.filter .sort .title .value').html('Từ thấp đến cao'); break;
+                    default: {
+                            $('.filter .sort .title .value').html(''); 
+                            //close
+                            $('.filter .sort .title .close-filter').attr('href', SetHref('', '', url));
+                            $('.filter .sort .title .close-filter').css('display', 'none');
+                            break;
+                        }
+                }
+            }
+
+            //set href
+            //Price
+            $('.filter .price .sub-facet .T20t').attr('href', SetHref('T20t', filters.Sort, url));
+            $('.filter .price .sub-facet .15t-20t').attr('href', SetHref('15t-20t', filters.Sort, url,));
+            $('.filter .price .sub-facet .10t-15t').attr('href', SetHref('10t-15t', filters.Sort, url));
+            $('.filter .price .sub-facet .5t-10t').attr('href', SetHref('5t-10t', filters.Sort, url));
+            $('.filter .price .sub-facet .D5t').attr('href', SetHref('D5t', filters.Sort, url));
+            //Sort
+            $('.filter .sort .sub-facet .m-c').attr('href', SetHref(filters.Price, 'm-c', url));
+            $('.filter .sort .sub-facet .c-m').attr('href', SetHref(filters.Price, 'c-m', url));
+            $('.filter .sort .sub-facet .c-t').attr('href', SetHref(filters.Price, 'c-t', url));
+            $('.filter .sort .sub-facet .t-c').attr('href', SetHref(filters.Price, 't-c', url));
+        }
+        else{
+            //Price
+            price = null;
+            $('.filter .price .title .value').html('');
+
+            //Sort
+            sort = null;
+            $('.filter .sort .title .value').html('');
+
+            //set href
+            //Price
+            $('.filter .price .sub-facet .T20t').attr('href', AppendHref('T20t', 'Price', url));
+            $('.filter .price .sub-facet .15t-20t').attr('href', AppendHref('15t-20t', 'Price', url));
+            $('.filter .price .sub-facet .10t-15t').attr('href', AppendHref('10t-15t', 'Price', url));
+            $('.filter .price .sub-facet .5t-10t').attr('href', AppendHref('5t-10t', 'Price', url));
+            $('.filter .price .sub-facet .D5t').attr('href', AppendHref('D5t', 'Price', url));
+            //Sort
+            $('.filter .sort .sub-facet .m-c').attr('href', AppendHref('m-c', 'Sort', url));
+            $('.filter .sort .sub-facet .c-m').attr('href', AppendHref('c-m', 'Sort', url));
+            $('.filter .sort .sub-facet .c-t').attr('href', AppendHref('c-t', 'Sort', url));
+            $('.filter .sort .sub-facet .t-c').attr('href', AppendHref('t-c', 'Sort', url));
+        }
+
+        function SetHref(price, sort, url){
+            var filter = {
+                Price: price,
+                Sort: sort
+            };
+            var href = new URL(url);
+            href.searchParams.set('filters', JSON.stringify(filter));
+
+            return href;
+        };
+        function AppendHref(value, type, url){
+            var filter;
+            if(type == 'Price'){
+                var filter = {
+                    Price: value
+                };
+                var href = new URL(url);
+                href.searchParams.set('filters', JSON.stringify(filter));
+                return href;
+            }
+            else if(type == 'Sort'){
+                var filter = {
+                    Sort: value
+                };
+                var href = new URL(url);
+                href.searchParams.set('filters', JSON.stringify(filter));
+                return href;
+            }
+            else return url;
+        };
+
+
+        var urlApi = 'https://localhost:44311/api/';
+        var urlApiProduct = urlApi + 'Product/GetProductsByBrandCategoty';
+        var urlhandle = (window.location.pathname).substr(1).split('/');
+        
+        function sendRequest(url, data, method, async) {
+            $.ajax({
+                url: url,
+                async: async,
+                data: data,
+                success: function(response) {
+                    for (var key in response.data) {
+                        var product = response.data[key];
+                        var urlImg = `${response.Url}${product.Category.Name}/${product.Brand.Name}/${product.Name}/${product.Colors[0].Img}`;
+                        var name = `${product.Name} ${product.MemoryAndStorages[0].Ram}/${product.MemoryAndStorages[0].Rom} - Chính hãng`;
+                        var urlProduct = `/${product.Category.UrlHandle}/${product.Brand.UrlHandle}/${product.Id}`;
+
+                        let formatPrice = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                        });
+                        new Intl.NumberFormat('en-US').format(price)
+
+                        var price = formatPrice.format(product.SellingPrice + product.Colors[0].Price + product.MemoryAndStorages[0].Price);
+
+                        $('.list-item').append(
+                            '<div class="item">' +
+                                '<a href="'+ urlProduct +'">' +
+                                    '<img src="' + urlImg + '">' +
+                                    '<div class="info">' +
+                                        '<span class="name">' + name + '</span>' +
+                                        '<span class="price">' + price + '</span>' +
+                                    '</div>' +
+                                '</a>' +
+                            '</div>'
+                        );
+                    }
+                },
+                type: method,
+                headers: {'Content-Type': 'application/json'},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        }
+        var data = {
+                categoryUrlHandle: urlhandle[0],
+                brandUrlHandle: urlhandle[1],
+                price: price,
+                sort: sort
+            };
+        sendRequest(urlApiProduct, data, 'get', true);          
+    });
+</script>

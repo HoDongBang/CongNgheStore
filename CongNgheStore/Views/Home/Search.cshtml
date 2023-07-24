@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="render-product">
+    <div class="product">
+        <div class="list-item">
+        </div>      
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var urlApi = 'https://localhost:44311/api/';
+        var urlApiSearch = urlApi + 'Product/GetProductsBySearch';
+        const queryString = window.location.search;
+
+        const urlParams = new URLSearchParams(queryString);
+        const value = urlParams.get('key');
+        
+        function sendRequest(url, data, method, async) {
+            $.ajax({
+                url: url,
+                async: async,
+                data: data,
+                success: function(response) {
+                    for (var key in response.data) {
+                        var product = response.data[key];
+                        var urlImg = `${response.Url}${product.Category.Name}/${product.Brand.Name}/${product.Name}/${product.Colors[0].Img}`;
+                        var name = `${product.Name} ${product.MemoryAndStorages[0].Ram}/${product.MemoryAndStorages[0].Rom} - Chính hãng`;
+                        var urlProduct = `/${product.Category.UrlHandle}/${product.Brand.UrlHandle}/${product.Id}`;
+
+                        let formatPrice = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                        });
+                        new Intl.NumberFormat('en-US').format(price)
+
+                        var price = formatPrice.format(product.SellingPrice + product.Colors[0].Price + product.MemoryAndStorages[0].Price);
+
+                        $('.list-item').append(
+                            '<div class="item">' +
+                                '<a href="'+ urlProduct +'">' +
+                                    '<img src="' + urlImg + '">' +
+                                    '<div class="info">' +
+                                        '<span class="name">' + name + '</span>' +
+                                        '<span class="price">' + price + '</span>' +
+                                    '</div>' +
+                                '</a>' +
+                            '</div>'
+                        );
+                    }
+                },
+                type: method,
+                headers: {'Content-Type': 'application/json'},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        }
+        var data = {
+                value: value
+            };
+        sendRequest(urlApiSearch, data, 'get', true);          
+    });
+</script>

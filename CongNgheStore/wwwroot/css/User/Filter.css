@@ -1,0 +1,74 @@
+﻿.filter {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px #ccc;
+    background: #fff;
+    color: #000000;
+    margin-top: 40px;
+    display: flex;
+    justify-content: end;
+    position: relative;
+}
+
+.filter .title-filter {
+    padding: 15px 0;
+    margin-right: 100px;
+    font-weight: 600;
+    color: #009c85;
+}
+
+.filter .facet {
+    padding: 15px 0;
+}
+
+.filter .facet:hover {
+    color: #db746c;
+}
+
+.filter .facet .title {
+    margin-right: 100px;
+    cursor: pointer;
+}
+.filter .facet .title .close-filter {
+    color: #db746c;
+    font-size: 16px;
+    display: none;
+}
+
+.filter .facet .sub-facet {
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    left: 0;
+    top: 45px;
+    padding-top: 10px;
+}
+
+.filter .facet:hover .sub-facet {
+    display: block;
+}
+
+.filter .facet .sub-facet ul {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px #ccc;
+    background: #fff;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.filter .facet .sub-facet ul li {
+    padding: 20px 0;
+    cursor: default;
+}
+
+    .filter .facet .sub-facet ul li a {
+        text-decoration: none;
+        color: black;
+    }
+
+.filter .facet .sub-facet ul a:hover {
+    color: #009c85;
+}

@@ -1,0 +1,38 @@
+﻿* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    width: 100%;
+    background: #f4f4f4;
+}
+.container {
+    width: 400px;
+    margin-top: 40px;
+    background: white;
+    padding: 20px;
+}
+.container form{
+    font-size: 15px;
+}
+.container form .form-group{
+    margin-bottom: 10px;
+}
+.container form input{
+    font-size: 15px;
+}
+
+.message #message {
+    display: inline-block;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 600;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    z-index: 2000;
+    display: none;
+}

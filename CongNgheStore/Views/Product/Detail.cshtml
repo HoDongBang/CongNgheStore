@@ -1,0 +1,745 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="product-detail">
+    <h5></h5>
+    <div class="product-contains">
+        <div class="product-image">
+            <div id="carouselControls" class="carousel slide" data-ride="carousel" data-interval="5000">
+                    
+                <div class="carousel-inner">
+                
+                </div>
+                    
+                <div class="thumbnavigator">
+                    <a class="prev" href="#carouselControls" role="button" data-slide="prev" >
+                        <div>
+                            <i class="bi bi-caret-left-fill"></i>
+                            <span class="sr-only">Previous</span>
+                        </div> 
+                    </a>
+                    <ol class="carousel-indicators">  
+                    
+                    </ol>
+                    <a class="next" href="#carouselControls" role="button" data-slide="next" >
+                        <div>
+                            <i class="bi bi-caret-right-fill"></i>
+                            <span class="sr-only">Next</span>
+                        </div>
+                    </a>
+                </div>
+                    
+            </div>
+                
+        </div>
+        <div class="product-center">
+            <h4></h4>
+            <div class="option">
+                <div class="option-item memory-and-storage">
+                    <form>
+                        <span class="title">Lựa chọn phiên bản</span>
+                        <div class="contains">
+                            
+                        </div>
+                    </form>
+                </div>
+                <div class="option-item color">
+                    <form>
+                        <span class="title">Lựa chọn màu</span>
+                        <div class="contains">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="action">
+                <a href="/Order/Index"><button class="btn btn-purchase">Mua ngay</button></a>
+                <button class="btn btn-cart">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+                
+        <div class="product-specs">
+            <h5>Thông số kỹ thuật</h5>
+            <ul class="contains">
+                <li>
+                    <strong>Công nghệ màn hình: </strong>
+                    <span>AMOLED</span>
+                </li>
+                <li>
+                    <strong>Độ phân giải: </strong>
+                    <span>1080 x 2040 Pixel</span>
+                </li>
+                <li>
+                    <strong>Màn hình rộng: </strong>
+                    <span>6.44 inch</span>
+                </li>
+                <li>
+                    <strong>Camera trước: </strong>
+                    <span>32MP</span>
+                </li>
+                <li>
+                    <strong>Camera sau: </strong>
+                    <span>64MP x 2MP x 2MP</span>
+                </li>
+                <li>
+                    <strong>Hệ điều hành: </strong>
+                    <span>Android 12</span>
+                </li>
+                <li>
+                    <strong>Chip xử lý (CPU): </strong>
+                    <span>2 x Cortex-A76 2.20 GHz + 6 x Cortex-A55 2.00 GHz</span>
+                </li>
+                <li>
+                    <strong>Dung lượng pin: </strong>
+                    <span>4500 mAh</span>
+                </li>
+            </ul>
+            <div class="action">
+                <button class="btn" data-toggle="modal" data-target="#modal">
+                    <i class="bi bi-gear"></i>
+                    <span>Cấu hình chi tiết</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal -->
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+                
+        <!-- Modal content-->
+        <div class="modal-content">
+                    
+            <div class="modal-body">
+                <table class="table table-bordered screen">
+                    <thead>
+                        <tr">
+                            <th colspan="2"><h6>Màn hình</h6></th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <table class="table table-bordered rear-camera">
+                    <thead>
+                        <tr">
+                            <th colspan="2"><h6>Camera sau</h6></th>
+                        </tr>    
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <table class="table table-bordered front-camera">
+                    <thead>
+                        <tr">
+                            <th colspan="2"><h6>Camera trước</h6></th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <table class="table table-bordered os-and-cpu">
+                    <thead>
+                        <tr">
+                            <th colspan="2"><h6>Hệ điều hành & CPU</h6></th>
+                        </tr>         
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <table class="table table-bordered battery-and-charger">
+                    <thead>
+                        <tr">
+                            <th colspan="2"><h6>Pin & Sạc</h6></th>
+                        </tr>         
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+                
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var urlApi = 'https://localhost:44311/api/';
+        var urlhandle = (window.location.pathname).substr(1).split('/');
+        var urlApiProduct = urlApi + 'Product/GetProductById/' + urlhandle[2];
+
+        function sendRequest(url, data, method, async) {
+            $.ajax({
+                url: url,
+                async: async,
+                data: data,
+                success: function(response) { 
+                    
+                    var product = response.data;
+
+                    //title
+                    var categoryName = product.Category.Name.toLowerCase();
+                    var categoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+                    var title = `${categoryName} ${product.Name} - Chính hãng`;
+                    $('.product-detail>h5').html(
+                        title
+                    );
+
+                    //product-image
+                    ProductImage(response);
+
+                    //product-center
+                    ProductCenter(product);
+                    
+                    //product-specs
+                    ProductSpecs(product);
+
+                    //cart
+                    $('.btn-cart').click(function(){
+                        AddCart(response);
+                    });
+
+                    //purchase
+                    $('.product-center .action a').on('click', function(e) {
+                        e.preventDefault(); // Now nothing will happen
+
+                        AddCart(response);
+
+                        var btn = e.target;
+                        var a = btn.parentElement;
+                        var href = a.getAttribute("href");
+                        window.location.href = href;
+                    });
+                    
+                },
+                type: method,
+                headers: {'Content-Type': 'application/json'},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        }
+        
+            
+        sendRequest(urlApiProduct, null, 'get', true); 
+
+        function ProductImage(response) {
+            //carousel
+            var product = response.data;
+            var lengthColors = product.Colors.length;
+            for (var i = 0; i < lengthColors; i++) {
+                var color = product.Colors[i];
+                var urlImg = `${response.Url}${product.Category.Name}/${product.Brand.Name}/${product.Name}/${color.Img}`;
+
+                //inner
+                $('.carousel-inner').append(
+                    '<div class="carousel-item">' +
+                        '<img class="d-block w-100" src="' + urlImg + '">' +
+                    '</div>'
+                );
+
+                //indicators
+                $('.carousel-indicators').append(
+                    '<li data-target="#carouselControls" data-slide-to="' + i + '">'+
+                        '<img class="d-block w-100" src="' + urlImg + '">' +
+                    '</li>'
+                );
+
+                //add class active cho item first
+                if (i == 0) {
+                    //indicators
+                    $('.carousel-indicators li').addClass('active');
+
+                    //inner
+                    $('.carousel-item').addClass('active');
+                }
+            }
+            //inner
+            $('.carousel-inner').append(
+                '<div class="prev-next" >'+
+                    '<a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev" >'+
+                        '<div>'+
+                            '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'+
+                            '<span class="sr-only">Previous</span>'+
+                        '</div> '+
+                    '</a>'+
+                    '<a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next" >'+
+                        '<div>'+
+                            '<span class="carousel-control-next-icon" aria-hidden="true"></span>'+
+                            '<span class="sr-only">Next</span>'+
+                        '</div>'+
+                    '</a>'+
+                '</div>'
+            );
+
+            Indicators();
+            $("#carouselControls").on('slid.bs.carousel', function(event){
+                Indicators();
+            });
+        };
+        function Indicators(){
+            var listIndicators = document.querySelectorAll('.carousel-indicators>li');
+            var length = listIndicators.length;
+            var px = 0;
+            var step = 65;
+            if (length <= 4) {
+                for (var i = 0; i < length; i++) {
+                    var string = px.toString() + 'px';
+                    listIndicators[i].style.left = string;
+                    px = px + step;
+                }
+            }
+            else {
+                for(var i= 0 ; i < length;i++){
+                if(listIndicators[i].classList.contains('active')){
+                    listIndicators[i].style.left = '100px';
+                        
+                    var midIndex = parseInt(length/2);
+                    if(i < midIndex){
+                        var bien = midIndex - i; //1
+                        px = 100;
+                        for(var j = midIndex - 1; j >= 0; j--){
+                            var index = length + (j - bien);
+                            if(index >= length)
+                                index = length - index;
+                            if(index < 0)
+                                index = (- index);
+
+                            px = px - step;
+                            var string = px.toString() + 'px';
+
+                            //console.log('duoi: ' + index);
+                            listIndicators[index].style.left = string;
+                            listIndicators[index].style.display = 'block';
+
+                            if(px < -30) listIndicators[index].style.display = 'none';
+                        }
+                        px = 100;
+                        for(var k = midIndex + 1; k < length; k++){
+                            var index = (k - bien);
+
+                            px = px + step;
+                            var string = px.toString() + 'px';
+
+                            //console.log('tren: ' + index);
+                            listIndicators[index].style.left = string;
+                            listIndicators[index].style.display = 'block';
+
+                            if(px > 230) listIndicators[index].style.display = 'none';
+                        }
+                    }
+                    else if(i > midIndex){
+                        var bien = midIndex - i; // -1                       
+                        var px = 100;
+                        for(var j = midIndex - 1; j >= 0; j--){
+                            var index = (j - bien);  
+
+                            px = px - step;
+                            var string = px.toString() + 'px';
+
+                            //console.log('duoi: ' + index);
+                            listIndicators[index].style.left = string;
+                            listIndicators[index].style.display = 'block';
+
+                            if(px < -30) listIndicators[index].style.display = 'none';
+                        }
+                        px = 100;
+                        for(var k = midIndex + 1; k < length; k++){
+                            var index = (k - bien);
+                            if(index >= length)
+                                index = index - length;
+
+                            px = px + step;
+                            var string = px.toString() + 'px';
+
+                            //console.log('tren: ' + index);
+                            listIndicators[index].style.left = string;
+                            listIndicators[index].style.display = 'block';
+
+                            if(px > 230) listIndicators[index].style.display = 'none';
+                        }
+                    }
+                    else{
+                        var px = 100;
+                        for(var j = midIndex - 1; j >= 0; j--){
+                            px = px - step;
+                            var string = px.toString() + 'px';
+
+                            //console.log('duoi: ' + j);
+                            listIndicators[j].style.left = string;
+                            listIndicators[j].style.display = 'block';
+
+                            if(px < -30) listIndicators[j].style.display = 'none';
+                        }
+                        px = 100;
+                        for(var k = midIndex + 1; k < length; k++){
+                            px = px + step;
+                            var string = px.toString() + 'px';
+
+                            //console.log('tren: ' + k);
+                            listIndicators[k].style.left = string;
+                            listIndicators[k].style.display = 'block';
+
+                            if(px > 230) listIndicators[k].style.display = 'none';
+                        }
+                    }
+                }
+            }
+          }
+            
+        };
+
+
+        function ProductCenter(product) {
+            let formatPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+            new Intl.NumberFormat('en-US').format(price)
+                    
+            var lengthMemoryAndStorage = product.MemoryAndStorages.length;
+            for (var i = 0; i < lengthMemoryAndStorage; i++) {
+                var price = formatPrice.format(product.SellingPrice + product.Colors[0].Price + product.MemoryAndStorages[i].Price);
+                var name = `${product.MemoryAndStorages[i].Ram}/${product.MemoryAndStorages[i].Rom}`;
+                var id = `memory-and-storage-${product.MemoryAndStorages[i].Id}`;
+
+                $('.memory-and-storage .contains').append(
+                    '<div class="form-check form-check-inline">'+
+                        '<input class="form-check-input" type="radio" name="memory-and-storage" id="'+id+'" value="'+product.MemoryAndStorages[i].Id+'">' +
+                        '<label class="form-check-label" for="'+ id +'">' +
+                            '<span class="name">'+ name +'</span>' +
+                            '<span class="price">'+ price +'</span>' +
+                        '</label>' +
+                    '</div>'
+                );
+                if(i == 0) $('.memory-and-storage .form-check-input').prop('checked', true);
+            }
+            var lengthColors = product.Colors.length;
+            for (var i = 0; i < lengthColors; i++) {
+                var price = formatPrice.format(product.SellingPrice + product.Colors[i].Price + product.MemoryAndStorages[0].Price);
+                var name = `${product.Colors[i].Name}`;
+                var id = `color-${product.Colors[i].Id}`;
+                        
+                $('.color .contains').append(
+                    '<div class="form-check form-check-inline" >'+
+                        '<input class="form-check-input" type="radio" name="color" id="'+id+'" value="'+product.Colors[i].Id+'">' +
+                        '<label class="form-check-label" for="'+ id +'">' +
+                            '<span class="name">'+ name +'</span>' +
+                            '<span class="price">'+ price +'</span>' +
+                        '</label>' +
+                    '</div>'
+                );
+                if(i == 0) $('.color .form-check-input').prop('checked', true);
+            }
+            //price
+            SetPrice(product);
+            $('.memory-and-storage form').change(function(){
+                ChangeMemoryAndStorage(product);
+            });
+            $('.color form').change(function(){
+                ChangeImg();
+                ChangeColor(product);
+            });
+        };
+        function GetPriceMemoryAndStorage(product) {
+            var memoryAndStorages = $('input[name=memory-and-storage]');
+            var priceMemoryAndStorage = 0;
+            for(var key in memoryAndStorages){
+                if(memoryAndStorages[key].checked){
+                    var id = memoryAndStorages[key].value;
+                    for(var key2 in product.MemoryAndStorages){
+                        if (product.MemoryAndStorages[key2].Id == id)
+                            priceMemoryAndStorage = product.MemoryAndStorages[key2].Price;
+                    }
+                } 
+            }
+            return (priceMemoryAndStorage);
+        };
+        function GetPriceColor(product) {
+            var colors = $('input[name=color]');
+            var priceColor = 0;
+            for(var key in colors){
+                if(colors[key].checked){
+                    var id = colors[key].value;
+                    for(var key2 in product.Colors){
+                        if (product.Colors[key2].Id == id)
+                            priceColor = product.Colors[key2].Price;
+                    }
+                } 
+            }
+
+            return (priceColor);
+        };
+        function SetPrice(product){
+            let formatPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+            new Intl.NumberFormat('en-US').format(price)
+            var price = formatPrice.format(GetPriceMemoryAndStorage(product) + GetPriceColor(product) + product.SellingPrice);
+            $(".product-center>h4").html(price);
+        };
+        function ChangeMemoryAndStorage(product) {
+             let formatPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+            new Intl.NumberFormat('en-US').format(price)
+            
+            var priceMemoryAndStorage = GetPriceMemoryAndStorage(product);
+            var lengthColor = product.Colors.length;
+            for (var i = 0; i < lengthColor; i++) {
+                var price = formatPrice.format(product.SellingPrice + product.Colors[i].Price + priceMemoryAndStorage);
+                var index = i + 1;
+                $('.color .contains .form-check:nth-child('+ index +') .price').html(
+                    price
+                );
+            }
+            SetPrice(product);
+        };
+        function ChangeColor(product) {
+            let formatPrice = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+            });
+            new Intl.NumberFormat('en-US').format(price)
+            
+            var priceColor = GetPriceColor(product);
+            var lengthMemoryAndStorage = Object.keys(product.MemoryAndStorages).length;
+            for (var i = 0; i < lengthMemoryAndStorage; i++) {
+                var price = formatPrice.format(product.SellingPrice + product.MemoryAndStorages[i].Price + priceColor);
+                var index = i + 1;
+                $('.memory-and-storage .contains .form-check:nth-child('+ index +') .price').html(
+                    price
+                );
+            }
+            SetPrice(product);
+        };
+        function ChangeImg() {
+            var colors = $('input[name=color]');
+            for(var key in colors){
+                if(colors[key].checked){
+                    var carouselInner = $('.carousel-inner .carousel-item');
+                    for (var key2 in carouselInner) {
+                        if (key2 == 'length') break;
+                        var index = parseInt(key2) + 1;
+                        $('.carousel-inner .carousel-item:nth-child('+ index +')').removeClass("active");
+                        
+                        if(key == key2) $('.carousel-inner .carousel-item:nth-child('+ index +')').addClass("active");
+                    }
+                    var carouselIndicators = $('.carousel-indicators li');
+                    for (var key2 in carouselIndicators) {
+                        if (key2 == 'length') break;
+                        var index = parseInt(key2) + 1;
+                        $('.carousel-indicators li:nth-child('+ index +')').removeClass("active");
+                        if(key == key2) $('.carousel-indicators li:nth-child('+ index +')').addClass("active");
+                    }
+                } 
+            }
+        };
+
+        function ProductSpecs(product){
+            $('.product-specs li:nth-child(1) span').html(
+                product.Screen.ScreenTechnology
+            );
+            $('.product-specs li:nth-child(2) span').html(
+                product.Screen.Resolution
+            );
+            $('.product-specs li:nth-child(3) span').html(
+                product.Screen.Widescreen
+            );
+            $('.product-specs li:nth-child(4) span').html(
+                product.FrontCamera.Resolution
+            );
+            $('.product-specs li:nth-child(5) span').html(
+                product.RearCamera.Resolution
+            );
+            $('.product-specs li:nth-child(6) span').html(
+                product.OSAndCPU.OperatingSystem
+            );
+            $('.product-specs li:nth-child(7) span').html(
+                product.OSAndCPU.Cpu
+            );
+            $('.product-specs li:nth-child(8) span').html(
+                product.BatteryAndCharger.BatteryCapacity
+            );
+                    
+
+            //model
+            //screen
+            var arr = [
+                ValidateString(product.Screen.ScreenTechnology, 'Công nghệ màn hình'),
+                ValidateString(product.Screen.Resolution, 'Độ phân giải'),
+                ValidateString(product.Screen.Widescreen, 'Màn hình rộng'),
+                ValidateString(product.Screen.MaximumBrightness, 'Độ sáng tối đa'),
+                ValidateString(product.Screen.TouchScreen, 'Mặt kính cảm ứng')
+            ];
+            arr.forEach(function(arr, index, array) {
+                $('.modal-body .screen tbody').append(
+                    arr
+                );
+            });
+            //rear-camera
+            var arr = [
+                ValidateString(product.RearCamera.Resolution, 'Độ phân giải'),
+                ValidateString(product.RearCamera.Film, 'Quay phim'),
+                ValidateString(product.RearCamera.FlashLight, 'Đèn Flash'),
+                ValidateString(product.RearCamera.Feature, 'Công nghệ')
+            ];
+            arr.forEach(function(arr, index, array) {
+                $('.modal-body .rear-camera tbody').append(
+                    arr
+                );
+            });
+            //front-camera
+            var arr = [
+                ValidateString(product.FrontCamera.Resolution, 'Độ phân giải'),
+                ValidateString(product.FrontCamera.Feature, 'Tính năng')
+            ];
+            arr.forEach(function(arr, index, array) {
+                $('.modal-body .front-camera tbody').append(
+                    arr
+                );
+            });
+            //os-and-cpu
+            var arr = [
+                ValidateString(product.OSAndCPU.OperatingSystem, 'Hệ điều hành'),
+                ValidateString(product.OSAndCPU.Cpu, 'CPU'),
+                ValidateString(product.OSAndCPU.CpuSpeed, 'Tốc độ CPU'),
+                ValidateString(product.OSAndCPU.Gpu, 'Chíp đồ họa (GPU)')
+            ];
+            arr.forEach(function(arr, index, array) {
+                $('.modal-body .os-and-cpu tbody').append(
+                    arr
+                );
+            });
+            //battery-and-charger
+            var arr = [
+                ValidateString(product.BatteryAndCharger.BatteryCapacity, 'Dung lượng pin'),
+                ValidateString(product.BatteryAndCharger.BatteryType, 'Loại pin'),
+                ValidateString(product.BatteryAndCharger.MaximumChargingSupport, 'Hổ trợ sạc tối đa'),
+                ValidateString(product.BatteryAndCharger.BatteryTechnology, 'Công nghệ pin')
+            ];
+            arr.forEach(function(arr, index, array) {
+                $('.modal-body .battery-and-charger tbody').append(
+                    arr
+                );
+            });
+        };
+        function ValidateString(string, title) {
+            if (string == null) 
+                return null
+            var strings = string.split(',');
+            if(strings.length == 1)
+                return (
+                    '<tr>'+
+                        '<td><strong>'+ title +'</strong></td>'+
+                        '<td><span>'+ strings[0] +'</span></td>'+
+                    '</tr>'
+                )
+            if (strings.length > 1) {
+                var value = '';
+                for (var i = 0; i < strings.length; i++){
+                    value += '<li>' + strings[i] +'</li>';
+                }
+                return (
+                    '<tr>'+
+                        '<td><strong>'+ title +'</strong></td>'+
+                        '<td><ul style="margin-left: 15px;">'+ value +'</ul></td>'+
+                    '</tr>'
+                )
+            }  
+        };
+
+        function AddCart(response) {
+            var product = response.data;
+            var order = JSON.parse(window.sessionStorage.getItem('order')) ;
+            var colorId = GetColorId(product);
+
+            var urlImg = '';
+            var colorName = '';
+            var lengthColors = product.Colors.length;
+            for (var i = 0; i < lengthColors; i++) {
+                if(product.Colors[i].Id == colorId){
+                    urlImg = `${response.Url}${product.Category.Name}/${product.Brand.Name}/${product.Name}/${product.Colors[i].Img}`;
+                    colorName = product.Colors[i].Name;
+                }    
+            }
+                        
+            var memoryAndStorageId = GetMemoryAndStorageId(product);
+            var rR = '';
+            var lengthMemoryAndStorages = product.MemoryAndStorages.length;
+            for (var i = 0; i < lengthMemoryAndStorages; i++) {
+                if(product.MemoryAndStorages[i].Id == memoryAndStorageId)
+                    rR = `${product.MemoryAndStorages[i].Ram}/${product.MemoryAndStorages[i].Rom}`;
+            }
+
+            var price = GetPriceMemoryAndStorage(product) + GetPriceColor(product) + product.SellingPrice;
+
+            var productSS = {
+                img: urlImg,
+                productId: product.Id,
+                productName: product.Name,
+                memoryAndStorageId: memoryAndStorageId,
+                'rR': rR,
+                colorId: colorId,
+                colorName: colorName,
+                price: price,
+                quantity: 1
+            };
+
+            //kiem tra product co trong order hay chua
+            var result = order.some(function(item, index, arr){
+                return (item.productId == productSS.productId && item.memoryAndStorageId == productSS.memoryAndStorageId && item.colorId == productSS.colorId)
+            })
+            if(result){
+                //co roi thi update len so luong + 1
+                order = order.map(function(item, index, arr){
+                    if(item.productId == productSS.productId && item.memoryAndStorageId == productSS.memoryAndStorageId && item.colorId == productSS.colorId){
+                        item.quantity += 1;
+                    }
+                    return item;
+                })
+            }
+            else{
+                // chua thi add them vao
+                order.push(productSS);
+            }
+            window.sessionStorage.setItem('order', JSON.stringify(order));
+            var cartTotal = order.reduce(function(accumlator, currentValue, currentIndex, arr){
+                return accumlator + currentValue.quantity;
+            }, 0);
+
+            $('#cart-total').html(cartTotal);
+        };
+        function GetColorId(product) {
+            var colors = $('input[name=color]');
+            for(var key in colors){
+                if(colors[key].checked){
+                    return colors[key].value;                   
+                } 
+            }
+        };
+        function GetMemoryAndStorageId(product) {
+            var memoryAndStorages = $('input[name=memory-and-storage]');
+            var priceMemoryAndStorage = 0;
+            for(var key in memoryAndStorages){
+                if(memoryAndStorages[key].checked){
+                    return memoryAndStorages[key].value;
+                } 
+            }
+        };
+    });
+</script>

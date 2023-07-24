@@ -1,0 +1,88 @@
+﻿.render-order {
+    margin-top: 40px;
+    width: 1200px;
+}
+
+.render-order .order-product .table-detail td {
+    padding-left: 10px;
+}
+
+.render-order .order-product .table-detail {
+    width: 860px;
+    margin: 0 auto;
+    background: #fff;
+    font-size: 15px;
+}
+
+.render-order .order-product .table-detail thead {
+    text-align: center;
+}
+
+.render-order .order-product .table-detail tr td:nth-child(1) {
+    text-align: center;
+    padding: 10px;
+}
+
+.render-order .order-product .table-detail td, .render-order .order-product .table-detail th {
+    border: 1px solid gray;
+}
+
+.render-order .order-product .table-detail img {
+    width: 90%;
+    height: 90%;
+}
+
+.render-order .order-product .table-detail .form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.render-order .order-product .table-detail .btn-down, .render-order .order-product .table-detail .btn-up, .render-order .order-product .table-detail input {
+    background: #fff;
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+    padding: 5px;
+    text-align: center;
+    box-shadow: none;
+    border: 1px solid #ced4da;
+    margin: 0;
+}
+
+.render-order .order-product .table-detail .btn-down {
+    border-right: none;
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.render-order .order-product .table-detail input {
+    border-radius: 0;
+    width: 37px;
+}
+
+.render-order .order-product .table-detail .btn-up {
+    border-left: none;
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+
+
+.render-order .order-inf {
+    width: 860px;
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: end;
+    font-size: 13px;
+}
+
+.render-order .order-inf form {
+    display: block;
+    width: 450px;
+    padding: 10px;
+    background: #fff;
+}
+
+.render-order .order-inf form input, .render-order .order-inf form textarea {
+    background: #f4f4f4;
+}

@@ -1,0 +1,259 @@
+﻿@model CongNgheStore.Models.ViewModel.SignUpVM
+
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_SignUp_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="message">
+        <span id="message">
+            
+        </span>
+    </div>
+    <h3 class="col d-flex justify-content-center">Đăng Ký</h3>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" onsubmit="return false" >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label">Số điện thoại: </label>
+                    <input  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" asp-for="PhoneNumber" class="form-control"/>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label">Họ: </label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label">Tên: </label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">Mật khẩu: </label>
+                    <input type="password" asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Nhập lại mật khẩu: </label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <input asp-for="RoleName" hidden />
+
+                <div class="form-group col d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Đăng ký</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+        <span class="text-primary">|</span>
+        <a asp-action="SignIn">Bạn đã có tài khoản?</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        $('button[type="submit"]').click(function() {
+            var status = validation();
+            if(status){
+                var urlApi = 'https://localhost:44311/api/';
+                var urlApiSignUp = urlApi + 'Account/SignUp';
+            
+                var data = {
+                    phoneNumber: $('#PhoneNumber').val(),
+                    firstName: $('#FirstName').val(),
+                    lastName: $('#LastName').val(),
+                    password: $('#Password').val(),
+                    confirmPassword: $('#ConfirmPassword').val(),
+                    roleName: $('#RoleName').val()
+                };
+                sendRequestSignUp(urlApiSignUp, data, 'post', true);
+            }
+        });
+
+        function message(value) {
+            $('#message').html(value);
+            $('#message').css('display','inline-block');
+            $('#message').addClass('bg-danger');
+            $('#message').fadeIn('slow');
+            setTimeout(function() {
+                $('#message').fadeOut('slow');
+            }, 3000);
+        }
+
+        function validation() {
+            var phoneNumberElement = document.querySelector('input[name="PhoneNumber"]');
+            var spanPhoneNumberElement = document.querySelector('input[name="PhoneNumber"] ~ span');
+
+            var firstNameElement = document.querySelector('input[name="FirstName"]');
+            var spanFirstNameElement = document.querySelector('input[name="FirstName"] ~ span');
+
+            var lastNameElement = document.querySelector('input[name="LastName"]');
+            var spanLastNameElement = document.querySelector('input[name="LastName"] ~ span');
+
+            var passwordElement = document.querySelector('input[name="Password"]');
+            var spanPasswordElement = document.querySelector('input[name="Password"] ~ span');
+
+            var confirmPasswordElement = document.querySelector('input[name="ConfirmPassword"]');
+            var spanConfirmPasswordElement = document.querySelector('input[name="ConfirmPassword"] ~ span');
+
+            
+            //reset thong bao
+            spanPhoneNumberElement.innerHTML = '';
+            spanFirstNameElement.innerHTML = '';
+            spanLastNameElement.innerHTML = '';
+            spanPasswordElement.innerHTML = '';
+            spanConfirmPasswordElement.innerHTML = '';
+            var status = true;
+            
+            //bắt buộc
+            if (phoneNumberElement.value === ''){
+                spanPhoneNumberElement.innerHTML = 'Số điện thoại là bắt buộc! ';
+                status = false;
+            }
+
+            if (firstNameElement.value === ''){
+                spanFirstNameElement.innerHTML += 'Họ là bắt buộc! ';
+                status = false;
+            }
+                
+
+            if (lastNameElement.value === '') {
+                spanLastNameElement.innerHTML += 'Tên là bắt buộc! ';
+                status = false;
+            }
+                
+            if (passwordElement.value === '') {
+                spanPasswordElement.innerHTML += 'Mật khẩu là bắt buộc! ';
+                status = false;
+            }       
+
+            //kiểm tra mật khẩu
+            if (passwordElement.value != '') {
+                if(passwordElement.value.length < 8 || passwordElement.value.length > 16){
+                    spanPasswordElement.innerHTML += 'Mật khẩu phải từ 8 - 16! ';
+                    status = false;
+                }
+                var regex = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,16})');
+                if (!regex.test(passwordElement.value)) {
+                    spanPasswordElement.innerHTML += 'Mật khẩu phải chứa ký tự Hoa, thường, số và ký tự đặc biệt! ';
+                    status = false;
+                }
+            } 
+
+            //kiểm tra nhập lại mật khẩu
+            if (confirmPasswordElement.value != passwordElement.value) {
+                spanConfirmPasswordElement.innerHTML += 'Mật khẩu nhập lại không đúng! ';
+                status = false;
+            }
+                
+            //xóa thông báo
+            phoneNumberElement.onfocus = function() {
+                spanPhoneNumberElement.innerHTML = '';
+            };
+            firstNameElement.onfocus = function() {
+                spanFirstNameElement.innerHTML = '';
+            };
+            lastNameElement.onfocus = function() {
+                spanLastNameElement.innerHTML = '';
+            };
+            passwordElement.onfocus = function() {
+                spanPasswordElement.innerHTML = '';
+            };
+            confirmPasswordElement.onfocus = function() {
+                spanConfirmPasswordElement.innerHTML = '';
+            };
+            return status;
+        }
+        function sendRequestSignUp(url, data, method, async) {
+            $.ajax({
+                url: url,
+                async: async,
+                data: JSON.stringify(data),
+                error: function(response) {
+                    message('Đăng ký không thành công!');
+                },
+                success: function(response) {
+                    if (response.Success == true) {
+                        window.sessionStorage.setItem('message', 'Đăng ký thành công!');
+
+                        var urlApi = 'https://localhost:44311/api/';
+                        var urlApiSignIn = urlApi + 'Account/SignIn';
+            
+                        var dataApiSignIn = {
+                            phoneNumber: data.phoneNumber,
+                            password: data.password,
+                            rememberMe: false,
+                            roleName: data.roleName
+                        };
+                        sendRequestSignIn(urlApiSignIn, dataApiSignIn, 'post', true);
+                    }
+                    else message(response.Message);
+                },
+                type: method,
+                headers: {'Content-Type': 'application/json'},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        }
+        function sendRequestSignIn(url, data, method, async) {
+            $.ajax({
+                url: url,
+                async: async,
+                data: JSON.stringify(data),
+                error: function(response) {
+                    window.sessionStorage.setItem('message', 'Đăng nhập không thành công thành công!');
+                    window.location.href = '/User/SignIn';
+                },
+                success: function(response) {
+                    if (response.Success == true) {
+                        //luu token vao localStorage
+                        window.localStorage.setItem('token', response.Data)
+
+                        //lay data trong payload cua token
+                        function decodeJwt(token) {
+                            var base64Url = token.split('.')[1];
+                            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                            }).join(''));
+
+                            return JSON.parse(jsonPayload);
+                        }
+
+                        var payload = decodeJwt(response.Data);
+                        var role = payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+                        //neu role user tra ve home
+                        if(role == 'User') window.location.href = '/';
+
+                        //neu role admin tra ve admin/home
+                        if(role == 'Admin') window.location.href = 'Admin/Home'
+                    }
+                    else message(response.Message);
+                },
+                type: method,
+                headers: {'Content-Type': 'application/json'},
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        }
+    });
+</script>
+
+
